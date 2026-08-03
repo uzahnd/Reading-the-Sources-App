@@ -1,0 +1,248 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "version": "1.0.0",
+        "title": "Paul's Commentaries – Custom API",
+        "description": "This is the place to add your own path endpoints"
+    },
+    "servers": [
+        {
+            "description": "Endpoint for testing on localhost",
+            "url": "/exist/apps/PaulCom"
+        }
+    ],
+    "components": {
+        "securitySchemes": {
+            "basicAuth": {
+                "type": "http",
+                "scheme": "basic"
+            },
+            "cookieAuth": {
+                "type": "apiKey",
+                "name": "teipublisher.com.login",
+                "in": "cookie"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Table of content",
+            "description": "table des matiere basee sur les div et xml id"
+        },
+        {
+            "name": "url manifest iiif",
+            "description": "récupère l'url des manifest iiif"
+        }
+    ],
+    "paths": {
+        "/api/document/{id}/contents": {
+            "get": {
+                "summary": "Table des matières basée uniquement sur le contenu de body",
+                "tags": [
+                    "custom"
+                ],
+                "operationId": "custom:table-of-contents",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "corpus/3_Pellican_1-Tim_C1-6.xml"
+                        }
+                    },
+                    {
+                        "name": "view",
+                        "in": "query",
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "page",
+                                "div",
+                                "single"
+                            ]
+                        },
+                        "example": "div"
+                    },
+                    {
+                        "name": "target",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "icons",
+                        "in": "query",
+                        "schema": {
+                            "type": "boolean",
+                            "default": true
+                        }
+                    },
+                    {
+                        "name": "text",
+                        "in": "query",
+                        "schema": {
+                            "type": "boolean",
+                            "default": true
+                        },
+                        "description": "Si vrai, affiche le texte complet (reg) de chaque verset sous son titre, si faux, il y a seulement le titre du verset 'chap. I, §1'"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ToC HTML générée depuis body uniquement",
+                        "content": {
+                            "text/html": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Document introuvable",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/document/{id}/manifest-url": {
+            "get": {
+                "summary": "URL du manifeste IIIF officiel du document",
+                "operationId": "custom:manifest-url",
+                "tags": [
+                    "custom"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "Anonymus_1-Tim_C1-6"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "URL du manifeste",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "manifest": "https://www.e-rara.ch/i3f/v20/952762/manifest"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/document/{id}/page-for-section": {
+            "get": {
+                "summary": "Identifiant de page e-rara pour une section donnée",
+                "operationId": "custom:page-for-section",
+                "tags": [
+                    "custom"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "Daneau_1-Tim_C1-6"
+                        }
+                    },
+                    {
+                        "name": "section",
+                        "in": "query",
+                        "required": false,
+                        "description": "Optionnel. Si absent, renvoie la première page du document (ex. ouverture par défaut sans section précise).",
+                        "schema": {
+                            "type": "string",
+                            "example": "Dan_1-Tim_C_I_sec_1_full"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Identifiant de page",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "pageId": "f952810"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/document/{id}/metadata": {
+            "get": {
+                "summary": "Métadonnées bibliographiques formatées en HTML (auteur, imprimeur, lieu, date...)",
+                "operationId": "custom:document-metadata",
+                "tags": [
+                    "custom"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "Daneau_1-Tim_C1-6"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Métadonnées en HTML",
+                        "content": {
+                            "text/html": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Document introuvable",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "security": [
+        {
+            "cookieAuth": []
+        },
+        {
+            "basicAuth": []
+        }
+    ]
+}

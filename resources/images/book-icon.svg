@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+    <!-- Reliure centrale -->
+    <path d="M32 10 L32 54" stroke="#3A6A6A" stroke-width="1.5" fill="none"/>
+
+    <!-- Page de gauche -->
+    <path d="M6 14 C 14 10, 24 10, 32 13 L 32 52 C 24 49, 14 49, 6 53 Z" fill="#FFFFFF" stroke="#3A6A6A" stroke-width="2" stroke-linejoin="round"/>
+
+    <!-- Page de droite -->
+    <path d="M58 14 C 50 10, 40 10, 32 13 L 32 52 C 40 49, 50 49, 58 53 Z" fill="#FFFFFF" stroke="#3A6A6A" stroke-width="2" stroke-linejoin="round"/>
+
+    <!-- Lignes de texte, page gauche -->
+    <path d="M11 20 C 17 18, 23 18, 28 20" stroke="#3A6A6A" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+    <path d="M11 26 C 17 24, 23 24, 28 26" stroke="#3A6A6A" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+    <path d="M11 32 C 17 30, 23 30, 28 32" stroke="#3A6A6A" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+    <path d="M11 38 C 17 36, 23 36, 28 38" stroke="#3A6A6A" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+
+    <!-- Lignes de texte, page droite -->
+    <path d="M53 20 C 47 18, 41 18, 36 20" stroke="#3A6A6A" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+    <path d="M53 26 C 47 24, 41 24, 36 26" stroke="#3A6A6A" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+    <path d="M53 32 C 47 30, 41 30, 36 32" stroke="#3A6A6A" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+    <path d="M53 38 C 47 36, 41 36, 36 38" stroke="#3A6A6A" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+
+    <!-- Marque-page -->
+    <path d="M30 8 L 34 8 L 34 20 L 32 17 L 30 20 Z" fill="#8b5a2b"/>
+</svg>

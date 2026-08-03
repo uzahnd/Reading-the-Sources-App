@@ -1,0 +1,40 @@
+<template>
+    ---json
+    {
+    "templating": {
+    "extends": "templates/layouts/content.html"
+    }
+    }
+    ---
+    [% template styles %]
+    <link rel="stylesheet" href="[[ $context-path ]]/resources/css/document-facsimile.css"/>
+    <link rel="stylesheet" href="[[ $context-path ]]/resources/css/document-metadata.css"/>
+    <link rel="stylesheet" href="[[ $context-path ]]/resources/css/facets.css"/>
+    <link rel="stylesheet" href="[[ $context-path ]]/resources/css/document-cards.css"/>
+    [% endtemplate %]
+    
+    <!-- Basic template for a page with a single document, avec fac-similé IIIF à côté du texte -->
+    <div class="document-with-facsimile">
+        <div class="center">
+            <pb-view src="document1" column-separator=".tei-cb" append-footnotes="append-footnotes" subscribe="transcription" emit="transcription" direction="[[$context?defaults?direction]]"/>
+        </div>
+        [% if $context?features?iiif?enabled and $context?features?iiif?viewer = "mirador" %]
+        <div class="facsimile-column">
+            <div id="mirador-facsimile"/>
+            <script>
+                window.__rrpDocId = "[[ $context?doc?path ]]";
+                window.__rrpContextPath = "[[ $context-path ]]";
+            </script>
+            <script src="[[ $context-path ]]/resources/scripts/mirador-sync.js"/>
+        </div>
+        [% endif %]
+    </div>
+    <script src="[[ $context-path ]]/resources/scripts/margin-notes-position.js"/>
+    
+    [% template after %]
+    <h5>Metadata</h5>
+    <pb-load url="api/document/[[ $context?doc?path ]]/metadata" src="document1" auto="auto">
+        <pb-i18n key="dialogs.loading">Loading</pb-i18n>
+    </pb-load>
+    [% endtemplate %]
+</template>

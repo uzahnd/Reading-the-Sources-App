@@ -1,0 +1,68 @@
+/* ==========================================================
+   document-facsimile.css
+   Mise en page "texte + fac-similé IIIF" (templates/pages/basic.html)
+   ========================================================== */
+
+/* Largeurs des colonnes before/after : contrôlées par ces variables
+   via layouts.css (width: var(--jinks-layout-before-width)), la
+   grille elle-même utilise des colonnes 0.001fr qui s'adaptent au
+   contenu — donc à cette variable, pas à un ratio de grille. On
+   redéfinit uniquement sur cette page. */
+:root:has(.document-with-facsimile) {
+    --jinks-layout-before-width: 13vw;
+    --jinks-layout-after-width: 20vw;
+}
+
+/* Sécurité : si la table des matières ou les métadonnées ont déjà été
+   redimensionnées manuellement par glisser-déposer, un style inline
+   en pixels peut avoir été enregistré et ignorer la variable
+   ci-dessus. On force explicitement, uniquement sur cette page.
+aside.before:has(~ main .document-with-facsimile),
+nav.before-top:has(~ main .document-with-facsimile),
+main:has(.document-with-facsimile) ~ aside.after,
+main:has(.document-with-facsimile) ~ nav.after-top {
+    width: 10vw !important;
+} */
+
+/* main a déjà overflow:auto et une hauteur bornée par la grille de
+   .fixed-layout (voir layouts.css) : c'est exactement ce qu'il faut
+   pour que main défile SEUL, sans emporter avec lui l'en-tête, la
+   table des matières ou les métadonnées (zones de grille séparées).
+   On ne touche donc plus à overflow ici — juste au fond, par
+   cohérence visuelle. */
+main:has(.document-with-facsimile) {
+    background-color: var(--jinks-background-color, #D8E8E8);
+}
+
+.document-with-facsimile {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+    align-self: flex-start;
+    overflow: visible;
+}
+
+.document-with-facsimile .center {
+    flex: 1 1 50%;
+    min-width: 0;
+    overflow: visible;
+    height: auto;
+    --pb-view-max-width: none;
+    --pb-view-scroll-margin-top: 0;
+
+}
+
+.document-with-facsimile .facsimile-column {
+    flex: 1 1 50%;
+    min-width: 0;
+    height: 85vh;
+    position: sticky;
+    top: 1rem;
+    align-self: flex-start;
+}
+
+#mirador-facsimile {
+    height: 100%;
+    width: 100%;
+}
+

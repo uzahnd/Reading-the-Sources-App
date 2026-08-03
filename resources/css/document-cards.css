@@ -1,0 +1,92 @@
+
+/* Réduit la taille globale des cartes de document (résultats de
+   recherche / navigation du corpus). Espacements divisés par deux,
+   taille de police inchangée. */
+.card {
+    padding: 0.05rem !important;
+    font-size: 1rem !important;
+    position: relative !important;
+    overflow: hidden !important;
+    background-image:
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.55) 0%, transparent 20%, transparent 80%, rgba(255, 255, 255, 0.55) 100%),
+        linear-gradient(to left, rgba(58, 106, 106, 0.18), transparent 70%) !important;
+}
+ 
+
+
+.card > * {
+    position: relative !important;
+    z-index: 1 !important;
+}
+
+/* Div vides générées par la transformation TEI (pas le titre lui-même,
+   qui est un <a> avec la même classe) — on les masque. */
+div.tei-titleStmt {
+    display: none !important;
+}
+
+/* Description d'exemple vide */
+.tei-fileDesc.sample-description {
+    display: none !important;
+}
+
+/* Titre de carte : pas de retour à la ligne inséré côté ODD (règle
+   retirée) — reste sur une seule ligne, avec une icône livre devant.
+   Décalé plus bas pour ne pas être collé en haut de la carte. */
+a.tei-titleStmt {
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 0.4rem !important;
+    margin-left: 1.2rem !important;
+    margin-top: 0.9rem !important;
+}
+
+a.tei-titleStmt::before {
+    content: "" !important;
+    display: inline-block !important;
+    flex-shrink: 0 !important;
+    width: 1.2em !important;
+    height: 1.2em !important;
+    margin-top: 0.1em !important;
+    background-image: url("../images/book-icon.svg") !important;
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+}
+
+/* Licences : réaffichées, en discret et compact. */
+.tei-publicationStmt {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    gap: 0.2rem !important;
+    margin-top: 0.125rem !important;
+    margin-left: 1.2rem !important;
+    margin-bottom: 0.2rem !important;
+    font-size: 0.8rem !important;
+    color: #444 !important;
+}
+
+.tei-publicationStmt .tei-licence {
+    display: inline !important;
+}
+
+.tei-publicationStmt .tei-licence a {
+    color: #444 !important;
+    text-decoration: underline !important;
+    font-size: 0.68rem !important;
+}
+
+.tei-publicationStmt p.tei-p {
+    display: inline !important;
+    margin: 0 !important;
+    font-size: 0.68rem !important;
+    color: #333 !important;
+}
+
+.tei-publicationStmt p.tei-p::after {
+    content: " · " !important;
+}
+
+.tei-publicationStmt p.tei-p:last-child::after {
+    content: "" !important;
+}

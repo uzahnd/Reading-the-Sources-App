@@ -1,0 +1,374 @@
+/* ==========================================================
+   landing_page.css
+   Styles pour la page d'accueil RRP (templates/landing.html)
+   ========================================================== */
+
+.rrp-landing {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: hidden;
+}
+
+/* --- Structure "sticky footer" : force le bandeau de logos à toujours
+       toucher le bas réel de l'écran, peu importe la hauteur du
+       contenu au-dessus, sans avoir besoin de deviner un espace exact.
+       height (au lieu de min-height) + overflow:hidden garantissent
+       qu'on ne dépasse jamais un écran, quelle que soit sa taille. --- */
+
+html:has(main .rrp-landing),
+body:has(main .rrp-landing) {
+    overflow: hidden;
+}
+
+main:has(.rrp-landing) {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 44px);
+    overflow: hidden;
+    position: relative;
+    background-color: #f4f4f4;
+}
+
+/* Images décoratives en transparence, sur tout l'espace entre les deux
+   frises (y compris l'espace vide en bas), collées aux bords réels de
+   l'écran. Naturellement masquées derrière les fonds opaques des frises
+   et des bandeaux du bas (z-index plus élevé), qui s'affichent par-dessus.
+   Un dégradé sur le bord intérieur crée un effet de fondu/continuité
+   avec le fond gris central, plutôt qu'un bord net. */
+
+.rrp-landing::before {
+    content: "";
+    position: absolute;
+    top: 6vh;
+    left: 45%;
+    margin-left: -50vw;
+    width: 50vw;
+    height: calc(100% - 22vh);
+    background-image:
+        linear-gradient(to bottom, transparent 70%, #f4f4f4 100%),
+        url("../images/bg-manuscript-page.jpg");
+    background-size: cover;
+    background-position: left center;
+    background-repeat: no-repeat;
+    opacity: 0.15;
+    filter: grayscale(100%);
+    -webkit-mask-image: linear-gradient(to right, black 15%, transparent 95%);
+    mask-image: linear-gradient(to right, black 15%, transparent 95%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.rrp-landing::after {
+    content: "";
+    position: absolute;
+    right: 49%;
+    bottom: 12vh;
+    margin-right: -50vw;
+    width: 380px;
+    height: calc(100% - 18vh);
+    background-image: url("../images/margin.jpg");
+    background-size: 100% 100%;
+    background-position: right top;
+    background-repeat: no-repeat;
+    opacity: 0.15;
+    filter: grayscale(100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 35%, black 65%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 35%, black 65%, transparent 100%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Fond gris clair sur toute la largeur de l'écran, derrière le titre
+   et les cartes ; le contenu reste centré dans une colonne de 1100px.
+   Opaque : masque les images décoratives de rrp-landing là où il
+   passe (y compris derrière la frise du titre, qui est à l'intérieur). */
+
+.rrp-content-middle {
+    position: relative;
+    z-index: 0;
+    left: 50%;
+    width: 100vw;
+    margin-left: -50vw;
+    box-sizing: border-box;
+}
+
+.rrp-content-middle-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    box-sizing: border-box;
+}
+
+/* --- Titre / hero --- */
+
+.rrp-hero {
+    padding: 7vh 0 3vh;
+    text-align: center;
+    position: relative;
+    overflow: visible;
+}
+
+.rrp-hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 100vw;
+    height: 6vh;
+    margin-left: -50vw;
+    background-image: url("../images/bg-lettrine.jpg");
+    background-size: auto 100%;
+    background-repeat: repeat-x;
+    background-position: center top;
+    opacity: 0.15;
+    filter: grayscale(100%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* --- Rangées de cartes (disposition pyramidale) --- */
+
+.rrp-cards-row {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.rrp-cards-row--top {
+    margin-bottom: 1rem;
+}
+
+.rrp-cards-row--bottom {
+    justify-content: center;
+}
+
+.rrp-card {
+    flex: 0 0 calc((100% - 3rem) / 3);
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    background: var(--jinks-color-surface, #fff);
+}
+
+.rrp-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+}
+
+.rrp-card-image {
+    height: 9vh;
+    background: linear-gradient(135deg, var(--jinks-color-primary, #2f7d6f) 0%, var(--jinks-color-primary-dark, #1e5349) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rrp-card-image svg {
+    width: 36px;
+    height: 36px;
+}
+
+.rrp-card-body {
+    padding: 0.7rem 1.2rem;
+}
+
+.rrp-card-body h3 {
+    margin: 0 0 0.3rem;
+    font-size: 1.05rem;
+}
+
+.rrp-card-body p {
+    margin: 0;
+    font-size: 0.88rem;
+    opacity: 0.75;
+}
+
+/* --- Frise décorative, répétée, au-dessus du bandeau de crédits --- */
+
+.rrp-frieze-divider {
+    position: relative;
+    z-index: 2;
+    left: 50%;
+    width: 100vw;
+    margin-left: -50vw;
+    height: 6vh;
+    margin-top: auto;
+    background-color: #f4f4f4;
+    overflow: hidden;
+}
+
+.rrp-frieze-divider::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("../images/bg-lettrine.jpg");
+    background-size: auto 100%;
+    background-repeat: repeat-x;
+    background-position: center top;
+    opacity: 0.15;
+    filter: grayscale(100%);
+    pointer-events: none;
+}
+
+/* --- Bandeau 1 : conditions d'utilisation / crédits --- */
+
+.rrp-credits {
+    position: relative;
+    z-index: 2;
+    left: 50%;
+    width: 100vw;
+    margin-left: -50vw;
+    margin-top: 0;
+    padding: 0.5rem 1.5rem;
+    background: var(--jinks-color-surface-alt, #f4f4f4);
+    font-size: 0.68rem;
+    opacity: 0.75;
+    line-height: 1.1;
+    text-align: center;
+    box-sizing: border-box;
+    border-top: 0.5px solid #3A6A6A;
+}
+
+.rrp-credits #credits {
+    max-width: none !important;
+    width: 100% !important;
+    margin: 0 !important;
+}
+
+/* --- Bandeau 2 : logos institutionnels --- */
+
+.rrp-partners {
+    position: relative;
+    z-index: 2;
+    left: 50%;
+    width: 100vw;
+    margin-left: -50vw;
+    padding: 0.5rem 3rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    background-color: #1e5349;
+}
+
+.rrp-partners img {
+    height: 28px;
+    max-width: 160px;
+    object-fit: contain;
+    opacity: 0.85;
+}
+
+.rrp-partners img.rrp-logo-large {
+    height: 50px;
+    max-width: 200px;
+}
+
+/* --- Barre "Previous/Next", non pertinente sur la page d'accueil --- */
+
+nav.toolbar {
+    display: none !important;
+}
+
+/* --- Écran de chargement transitoire (splash) : recoloré en gris pour
+       rester cohérent avec la page d'accueil pendant le court instant
+       où il s'affiche au chargement. --- */
+
+.splash {
+    background-color: #f4f4f4 !important;
+}
+
+/* --- pb-page lui-même : recoloré en gris pour que tout écart résiduel
+       (dû à l'estimation de hauteur de main) se fonde dans le fond,
+       plutôt que de laisser apparaître le teal par défaut du thème. --- */
+
+pb-page.fixed-layout {
+    background-color: #f4f4f4 !important;
+}
+
+/* --- Éléments vides de la mise en page générale (colonnes latérales,
+       barres "before-top"/"after-top", pied de page mobile) : masqués
+       pour que le bandeau de logos soit bien le dernier élément visible
+       en bas de l'écran, sans bande résiduelle (ex. resize-handler). --- */
+
+nav.after-top,
+aside.after,
+nav.before-top,
+aside.before,
+footer.mobile-footer {
+    display: none !important;
+}
+
+/* ==========================================================
+   Adaptation smartphone : cartes empilées en une seule colonne,
+   images décoratives masquées (trop étroites pour être lisibles
+   sur un petit écran), tailles réduites.
+   ========================================================== */
+
+@media (max-width: 640px) {
+    main:has(.rrp-landing) {
+        height: auto;
+        overflow: visible;
+        min-height: 100vh;
+    }
+
+    html:has(main .rrp-landing),
+    body:has(main .rrp-landing) {
+        overflow: visible;
+    }
+
+    .rrp-landing {
+        overflow: visible;
+    }
+
+    .rrp-landing::before,
+    .rrp-landing::after {
+        display: none;
+    }
+
+    .rrp-hero {
+        padding: 2rem 1rem 1.5rem;
+    }
+
+    .rrp-hero h1 {
+        font-size: 1.6rem;
+    }
+
+    .rrp-cards-row {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .rrp-cards-row--top {
+        margin-bottom: 0;
+    }
+
+    .rrp-card {
+        flex: 1 1 auto;
+        width: 100%;
+    }
+
+    .rrp-card-image {
+        height: 80px;
+    }
+
+    .rrp-partners {
+        padding: 0.75rem 1rem;
+        justify-content: center;
+        gap: 1.5rem;
+    }
+
+    .rrp-frieze-divider {
+        height: 30px;
+    }
+
+    .rrp-hero::before {
+        height: 30px;
+    }
+}

@@ -1,0 +1,199 @@
+/* ==========================================================
+   facets.css
+   Présentation des facettes de recherche, dans l'esprit de SETAF :
+   titre + chevron cliquable, séparateur pointillé entre sections,
+   cases à cocher classiques.
+   Structure réelle : <details class="facet-dimension"><summary>...
+   </summary><table>...</table></details>
+   ========================================================== */
+
+/* Une seule barre de recherche sur le site : celle au-dessus des
+   facettes (search.html). Celle du bandeau principal a un attribut
+   "action" qui la distingue — on la masque. */
+pb-search[action] {
+    display: none !important;
+}
+
+.facet-dimension {
+    border-bottom: 1px dotted rgba(0, 0, 0, 0.3) !important;
+    padding-bottom: 0.8rem !important;
+    margin-bottom: 0.8rem !important;
+}
+
+.facet-dimension summary {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    list-style: none !important;
+    cursor: pointer !important;
+    font-size: 0.9rem !important;
+    font-weight: 600 !important;
+    color: #2a5a5a !important;
+    padding: 0.5rem 0 !important;
+}
+
+.facet-dimension summary::-webkit-details-marker {
+    display: none !important;
+}
+
+.facet-dimension summary::marker {
+    content: "" !important;
+}
+
+/* Chevron : vers le bas si fermé, vers le haut si ouvert */
+.facet-dimension summary::after {
+    content: "" !important;
+    width: 0 !important;
+    height: 0 !important;
+    border-left: 5px solid transparent !important;
+    border-right: 5px solid transparent !important;
+    border-top: 6px solid #3A6A6A !important;
+    transition: transform 0.2s ease !important;
+}
+
+.facet-dimension[open] summary::after {
+    transform: rotate(180deg) !important;
+}
+
+.facet-dimension table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    margin-top: 0.4rem !important;
+}
+
+.facet-dimension table tr {
+    transition: background-color 0.15s ease !important;
+}
+
+.facet-dimension table tr:hover {
+    background-color: rgba(58, 106, 106, 0.06) !important;
+}
+
+/* Lignes resserrées entre elles (moins de padding vertical) */
+.facet-dimension table td {
+    padding: 0.05rem 0.3rem !important;
+    font-size: 0.55rem !important;
+    font-weight: 300 !important;
+    color: #555 !important;
+    vertical-align: middle !important;
+}
+
+.facet-dimension table td:last-child {
+    text-align: left !important;
+    color: #888 !important;
+    font-size: 0.78rem !important;
+    width: 2rem !important;
+}
+
+.facet-dimension label {
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 0.6rem !important;
+    cursor: pointer !important;
+    width: 100% !important;
+}
+
+.facet-dimension label pb-i18n {
+    flex: 1 !important;
+    min-width: 0 !important;
+}
+
+.facet-dimension input[type="checkbox"].facet {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    width: 1rem !important;
+    height: 1rem !important;
+    border: 1.5px solid #8b5a2b !important;
+    border-radius: 2px !important;
+    cursor: pointer !important;
+    flex-shrink: 0 !important;
+    position: relative !important;
+    margin: 0.15rem 0 0 0 !important;
+}
+
+.facet-dimension input[type="checkbox"].facet:checked {
+    background-color: transparent !important;
+    border-color: #8b5a2b !important;
+}
+
+.facet-dimension input[type="checkbox"].facet:checked::before,
+.facet-dimension input[type="checkbox"].facet:checked::after {
+    content: "" !important;
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    width: 65% !important;
+    height: 2px !important;
+    background: #8b5a2b !important;
+    border: none !important;
+}
+
+.facet-dimension input[type="checkbox"].facet:checked::before {
+    transform: translate(-50%, -50%) rotate(45deg) !important;
+}
+
+.facet-dimension input[type="checkbox"].facet:checked::after {
+    transform: translate(-50%, -50%) rotate(-45deg) !important;
+}
+
+/* Texte non gras même quand la case est cochée */
+.facet-dimension label:has(input:checked) {
+    font-weight: 400 !important;
+}
+
+.facet-dimension tr.nested td {
+    padding: 0 !important;
+}
+
+.facet-dimension tr.nested table {
+    margin-left: 1.2rem !important;
+    padding-left: 0.6rem !important;
+    border-left: 2px solid rgba(58, 106, 106, 0.25) !important;
+}
+
+.facet-dimension label:has(input[name^="all-"]) {
+    margin-top: 0.4rem !important;
+    font-size: 0.78rem !important;
+    color: #666 !important;
+    font-style: italic !important;
+}
+
+.facets-actions {
+    display: flex !important;
+    gap: 0.6rem !important;
+    margin-top: 1rem !important;
+    justify-content: center !important;
+}
+
+.facets-actions button {
+    flex: 0 0 auto !important;
+    padding: 0.4rem 1.2rem !important;
+    border: 1.5px solid transparent !important;
+    border-radius: 999px !important;
+    font-size: 0.8rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.03em !important;
+    cursor: pointer !important;
+    color: white !important;
+    background-size: cover !important;
+    background-position: center !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4) !important;
+}
+
+.facets-actions .facets-submit {
+    background-image: linear-gradient(rgba(58, 106, 106, 0.70), rgba(58, 106, 106, 0.78)), url("../images/bg-lettrine.jpg") !important;
+    border-color: #3A6A6A !important;
+}
+
+.facets-actions .facets-submit:hover {
+    background-image: linear-gradient(rgba(58, 106, 106, 0.75), rgba(58, 106, 106, 0.78)), url("../images/bg-lettrine.jpg") !important;
+}
+
+.facets-actions .facets-clear {
+    background-image: linear-gradient(rgba(139, 90, 43, 0.70), rgba(139, 90, 43, 0.78)), url("../images/bg-lettrine.jpg") !important;
+    border-color: #8b5a2b !important;
+}
+
+.facets-actions .facets-clear:hover {
+    background-image: linear-gradient(rgba(139, 90, 43, 0.75), rgba(139, 90, 43, 0.78)), url("../images/bg-lettrine.jpg") !important;
+}

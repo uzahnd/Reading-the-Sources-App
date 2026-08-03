@@ -1,0 +1,182 @@
+.document-metadata a {
+    color: #1a56db;
+    text-decoration: none;
+}
+
+.document-metadata a:hover {
+    color: #1442a8;
+    text-decoration: underline;
+}
+
+.document-metadata .epistle-line {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+/* Onglets en CSS pur (boutons radio cachés + labels + panneaux) */
+.document-metadata .metadata-tabs {
+    position: relative;
+}
+
+.document-metadata .tab-input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.document-metadata .tab-labels {
+    display: flex;
+    gap: 1rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+    margin-bottom: 0.8rem;
+}
+
+.document-metadata .tab-labels label {
+    cursor: pointer;
+    padding: 0.3rem 0;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    opacity: 0.55;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+}
+
+.document-metadata .tab-panel {
+    display: none;
+}
+
+.document-metadata .tab-empty {
+    font-size: 0.85rem;
+    opacity: 0.6;
+    font-style: italic;
+}
+
+.document-metadata .ocr-disclaimer {
+    margin-top: 1rem;
+    padding-top: 0.6rem;
+    border-top: 1px dashed rgba(0, 0, 0, 0.15);
+    font-size: 0.78rem;
+    font-style: italic;
+    opacity: 0.65;
+    line-height: 1.3;
+}
+
+.tab-input:nth-of-type(1):checked ~ .tab-labels label:nth-child(1),
+.tab-input:nth-of-type(2):checked ~ .tab-labels label:nth-child(2) {
+    opacity: 1;
+    border-bottom-color: #3A6A6A;
+}
+
+.tab-input:nth-of-type(1):checked ~ .tab-panel:nth-of-type(2) {
+    display: block;
+}
+.tab-input:nth-of-type(2):checked ~ .tab-panel:nth-of-type(3) {
+    display: block;
+}
+
+.document-metadata .tab-panel:nth-of-type(3) ul {
+    font-size: 0.78rem;
+    text-align: left;
+    padding: 0;
+    margin: 0;
+}
+
+.document-metadata .tab-panel:nth-of-type(3) li {
+    list-style: none;
+}
+
+.document-metadata h4 {
+    margin-bottom: 0.2rem;
+}
+
+.document-metadata .book-title {
+    font-style: italic;
+    opacity: 0.75;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.document-metadata dl {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.3rem 0.75rem;
+    margin: 0;
+}
+
+.document-metadata dt {
+    font-weight: 600;
+    opacity: 0.7;
+    font-size: 0.85rem;
+}
+
+.document-metadata dd {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.document-metadata .source-logo {
+    height: 1em;
+    width: auto;
+    vertical-align: middle;
+    margin-left: 0.3rem;
+    display: inline-block;
+}
+
+.document-metadata .provider-logo {
+    height: 1.1em;
+}
+
+.document-metadata .clickable-hint {
+    display: inline-block;
+    margin-right: 0.3rem;
+    color: #1a56db;
+    font-weight: 900;
+    font-size: 2em;
+    vertical-align: middle;
+    transition: transform 0.15s ease;
+}
+
+.document-metadata .provider-link:hover .clickable-hint {
+    transform: translateX(3px);
+}
+
+/* Logo SBB : forcé en noir pour une meilleure visibilité, quelle que
+   soit la couleur d'origine du fichier. */
+.document-metadata img[alt="SBB"] {
+    filter: brightness(0);
+}
+
+.document-metadata .rrp-logo {
+    height: 1.6em;
+}
+
+.document-metadata .metadata-links {
+    margin-top: 1.2rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.document-metadata .metadata-links h5 {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    opacity: 0.6;
+    margin-bottom: 0.4rem;
+}
+
+.document-metadata .metadata-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.document-metadata .metadata-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}

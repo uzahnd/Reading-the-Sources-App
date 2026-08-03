@@ -1,0 +1,108 @@
+/* Page Numbering */
+.numberingzone {
+    display: inline-block;
+    margin-left: 4pt;
+    color: grey;
+    float: right;
+    background: ghostwhite;
+}
+.numberingzone::before { content: '[p. '; }
+.numberingzone::after  { content: ']'; }
+.numberingzone:empty {
+    display: none;
+}
+/* Quire Marks */
+.quiremark {
+    display: none;
+}
+
+/* Notes marginales : "mg.N." numéroté automatiquement, la numérotation
+   repart à 1 à chaque nouvelle page grâce à counter-reset sur .pb.
+
+   IMPORTANT : le composant pb-view injecte lui-même une règle .margin-note
+   par défaut via JavaScript (adoptedStyleSheets), avec float/width/
+   margin-right négatif. On ne peut pas éditer cette règle interne, donc
+   on la neutralise en forçant TOUTES nos propriétés avec !important. */
+
+:host(pb-view) #view:has(.margin-note) {
+    margin-right: 0 !important;
+}
+
+.pb {
+    counter-reset: marginnote;
+}
+
+.margin-note {
+    display: block !important;
+    float: none !important;
+    clear: none !important;
+    position: static !important;
+    width: auto !important;
+    margin: 1.5rem 0 0.15rem 30px !important;
+    padding: 0.15rem 0 !important;
+    background: none !important;
+    border: none !important;
+    border-top: 1px solid rgba(0, 0, 0, 0.15) !important;
+    font-size: 0.96em !important;
+    line-height: 1.15 !important;
+    color: #444 !important;
+    counter-increment: marginnote;
+}
+
+/* Notes consécutives (une note directement après une autre) : espace
+   resserré, seul le premier bloc de notes après le texte a le grand
+   espace ci-dessus. */
+.margin-note + .margin-note {
+    margin-top: 0.15rem !important;
+}
+
+.margin-note::before {
+    content: "mg." counter(marginnote) ". ";
+    font-style: italic;
+    font-weight: 700;
+    color: #3A6A6A;
+}
+
+ 
+
+/* paragraphe */
+.ab-block {
+    clear: none;
+    text-align: justify;
+    margin-left: 30px;
+}
+.lettrine {
+  float: left;
+  font-size: 3em;
+  line-height: 0.85;
+  padding-right: 0.03em;
+  font-weight: bold;
+  transform: translateY(0.25em); /* fait descendre la lettrine */
+}
+/* title costum */
+.introduction-title-label::before { content: '['; }
+.introduction-title-label::after  { content: ']'; }
+.chapter-title {
+  text-align: center;
+  margin: 2em 0 1em 0;
+  font-weight: bold;
+}
+.section-title {
+  display: block;
+  margin: 1em 0;      /* espace avant et après */
+  font-weight: bold;
+}
+.verse-commentary-unit {
+  margin: 1.6em 0;
+}
+.verse-block {
+  margin: 0 0 0.6em 0;
+  font-style: italic;
+  color: #333;
+}
+.commentary-block {
+  margin: 0 0 0.4em 0;
+  line-height: 1.6;
+  text-align: justify;
+  color: #000;
+}

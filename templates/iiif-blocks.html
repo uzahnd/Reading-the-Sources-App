@@ -1,0 +1,12 @@
+<template>
+    [% template scripts %]
+    [% if ($context?isStatic or exists($context?doc)) and $context?features?iiif?enabled and $context?features?iiif?viewer = "mirador" %]
+    <script src="https://unpkg.com/mirador@latest/dist/mirador.min.js"/>
+    [% endif %]
+    [% endtemplate %]
+    [% template after %]
+    <!-- Bloc "after" désormais libre pour vos métadonnées : le fac-similé
+         Mirador est maintenant affiché à côté du texte (voir basic.html),
+         pas dans cette colonne latérale. -->
+    [% endtemplate %]
+</template>

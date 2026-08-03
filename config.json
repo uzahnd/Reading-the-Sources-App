@@ -1,0 +1,43 @@
+{
+  "label" : "RRP: Reading the Sources",
+  "odds" : [ "PaulCom.odd" ],
+  "id" : "https://e-editiones.org/apps/PaulCom",
+  "defaults" : {
+    "address-by-id" : true,
+    "languages" : [ "en" ],
+    "odd" : "PaulCom.odd",
+    "pagination" : {
+      "depth" : 3
+    }
+  },
+  "extends" : [ "base10", "theme-base10", "iiif" ],
+  "features" : {
+    "toc" : {
+      "collapse" : true,
+      "enabled" : true
+    },
+    "iiif" : {
+      "viewer" : "mirador",
+      "enabled" : true
+    }
+  },
+  "theme" : {
+    "logo" : {
+      "width" : "274px",
+      "image" : "../images/rrp-logo-white.png",
+      "height" : "40px"
+    },
+    "colors" : {
+      "palette" : "teal"
+    },
+    "splash" : {
+      "width" : "400px",
+      "image" : "../images/imagetologo.jpg",
+      "height" : "400px"
+    }
+  },
+  "pkg" : {
+    "abbrev" : "PaulCom"
+  },
+  "description" : ""
+}
