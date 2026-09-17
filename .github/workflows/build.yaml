@@ -1,0 +1,6 @@
+on: push
+jobs:
+  build:
+    uses: unige-lettres/existdb/.github/workflows/build.yaml@main
+    with:
+      existdb-version: 6.4.1
