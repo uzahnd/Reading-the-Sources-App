@@ -12,6 +12,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env: REPO_LOWER: ${{ github.repository }}
     continue-on-error: ${{ matrix.experimental }}
 
     strategy:
@@ -70,6 +71,9 @@ jobs:
         id: buildx
 
       # Build Docker image with buildx
+      - name: Set lowercase repo name
+        run: echo "REPO_LOWER=$(echo '${{ github.repository }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+
       - name: Build Docker image
         env:
           DOCKER_BUILDKIT: 1
@@ -78,14 +82,14 @@ jobs:
             --build-arg EXIST_VERSION=${{ matrix.exist-version }} \
             --build-arg BUILD=local \
             --load \
-            -t ${{ github.repository | lower }}-ci:${{ matrix.exist-version }} \
+            -t ${{ env.REPO_LOWER }}-ci:${{ matrix.exist-version }} \
             .
 
       - name: Start exist-ci containers
         run: |
             docker run -dit -p 8080:8080 \
               --name exist --rm --health-interval=1s --health-start-period=2s \
-              ${{ github.repository | lower }}-ci:${{ matrix.exist-version }}
+              ${{ env.REPO_LOWER }}-ci:${{ matrix.exist-version }}
  
 
       - name: Wait for server to start
