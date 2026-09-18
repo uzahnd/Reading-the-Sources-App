@@ -303,7 +303,14 @@ declare variable $config:app-root := $gen:app-root;
  :    and the app should be mapped to the root of the website (i.e. without /exist/apps/...)
  : 3. otherwise determine path from request as in 1a.
  :)
-declare variable $config:context-path := $gen:context-path;
+(:
+ : declare variable $config:context-path := $gen:context-path;
+ :)
+declare variable $config:context-path := 
+    let $header := request:get-header("X-Forwarded-Prefix")
+    return
+        if ($header) then $header
+        else "";
 
 (:~
  : The root of the collection hierarchy containing data.
