@@ -12,8 +12,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env: REPO_LOWER: ${{ github.repository }}
     continue-on-error: ${{ matrix.experimental }}
+    env: 
+      REPO_LOWER: ${{ github.repository }}
 
     strategy:
       fail-fast: false
