@@ -78,14 +78,14 @@ jobs:
             --build-arg EXIST_VERSION=${{ matrix.exist-version }} \
             --build-arg BUILD=local \
             --load \
-            -t ${{ github.repository }}-ci:${{ matrix.exist-version }} \
+            -t ${{ github.repository | lower }}-ci:${{ matrix.exist-version }} \
             .
 
       - name: Start exist-ci containers
         run: |
             docker run -dit -p 8080:8080 \
               --name exist --rm --health-interval=1s --health-start-period=2s \
-              ${{ github.repository }}-ci:${{ matrix.exist-version }}
+              ${{ github.repository | lower }}-ci:${{ matrix.exist-version }}
  
 
       - name: Wait for server to start
