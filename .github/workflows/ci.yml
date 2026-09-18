@@ -83,7 +83,7 @@ jobs:
 
       - name: Start exist-ci containers
         run: |
-            docker run -dit -p 8080:8080 \
+            docker run -dit -p 8081:8080 \
               --name exist --rm --health-interval=1s --health-start-period=2s \
               ${{ github.repository }}-ci:${{ matrix.exist-version }}
  
@@ -109,7 +109,7 @@ jobs:
         if: failure()
         run: |
           echo "Copying logs..."
-#          docker cp exist:/exist/logs/exist.log ./exist.log
+          docker cp exist:/exist/logs/exist.log ./exist.log
 
       - name: Upload logs artifact
         if: failure()
