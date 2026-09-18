@@ -306,11 +306,19 @@ declare variable $config:app-root := $gen:app-root;
 (:
  : declare variable $config:context-path := $gen:context-path;
  :)
-declare variable $config:context-path := 
-    let $header := request:get-header("X-Forwarded-Prefix")
+declare variable $config:context-path :=
+
+    let $prop := util:system-property("teipublisher.context-path")
+
     return
-        if ($header) then $header
-        else "";
+        if (not(empty($prop)) and $prop != "auto")
+            then ($prop)
+        else if(not(empty(request:get-header("X-Forwarded-Host"))))
+            then ("")
+        else (
+            request:get-context-path() || substring-after($config:app-root, "/db")
+        )
+;
 
 (:~
  : The root of the collection hierarchy containing data.
