@@ -84,10 +84,9 @@ ENV JDK_JAVA_OPTIONS="\
     -Dteipublisher.context-path=${CONTEXT_PATH} \
     -Dteipublisher.proxy-caching=${PROXY_CACHING}"
 
-# pre-populate the database by launching it once and change default pw
-# RUN [ "java", "org.exist.start.Main", "client", "--no-gui",  "-l", "-u", "admin", "-P", "" ]
-# exit code 143 (SIGTERM) and 130 (SIGINT) are expected on shutdown
+RUN ["find", "/", "-name", "sh", "-o", "-name", "ash", "-o", "-name", "bash"]
 
-RUN [ "/bin/sh", "-c", "java org.exist.start.Main client --no-gui -l -u admin -P ; EXIT_CODE=$?; echo \"Exit code: $EXIT_CODE\"; exit 0" ]
+# pre-populate the database by launching it once and change default pw
+RUN [ "java", "org.exist.start.Main", "client", "--no-gui",  "-l", "-u", "admin", "-P", "" ]
 
 EXPOSE ${HTTP_PORT} ${HTTPS_PORT}
