@@ -10,7 +10,7 @@
 }
 
 @test "container can be reached via http" {
-  result=$(curl -Is http://127.0.0.1:8080/ | grep -o 'Jetty')
+  result=$(curl -Is http://127.0.0.1:8081/ | grep -o 'Jetty')
   [ "$result" == 'Jetty' ]
 }
 
@@ -35,7 +35,7 @@
 }
 
 @test "application responds" {
-  result=$(curl -sL -o /dev/null -w "%{http_code}" http://127.0.0.1:8080/exist/apps/PaulCom/)
+  result=$(curl -sL -o /dev/null -w "%{http_code}" http://127.0.0.1:8081/exist/apps/PaulCom/)
   [ "$result" -eq 200 ]
 }
 
