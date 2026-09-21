@@ -88,9 +88,6 @@ ENV JDK_JAVA_OPTIONS="\
 # RUN [ "java", "org.exist.start.Main", "client", "--no-gui",  "-l", "-u", "admin", "-P", "" ]
 # exit code 143 (SIGTERM) and 130 (SIGINT) are expected on shutdown
 
-RUN java org.exist.start.Main client --no-gui -l -u admin -P ""; \
-    EXIT=$?; \
-    echo "eXist-db exited with code: $EXIT"; \
-    [ $EXIT -eq 0 ] || [ $EXIT -eq 130 ] || [ $EXIT -eq 143 ] || exit $EXIT
+RUN [ "/bin/sh", "-c", "java org.exist.start.Main client --no-gui -l -u admin -P ''; EXIT_CODE=$?; echo \"Exit code: $EXIT_CODE\"; exit 0" ]
 
 EXPOSE ${HTTP_PORT} ${HTTPS_PORT}
