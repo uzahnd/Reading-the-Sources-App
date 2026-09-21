@@ -66,8 +66,7 @@ ARG USR
 USER ${USR}
 
 WORKDIR /exist
-
-ARG ADMIN_PASS=none
+# ARG ADMIN_PASS=none
 
 ARG CACHE_MEM
 ARG MAX_BROKER
@@ -87,5 +86,14 @@ ENV JDK_JAVA_OPTIONS="\
 # pre-populate the database by launching it once and change default pw
 # auskommentiert weil es zu Problemen führt
 # RUN [ "java", "org.exist.start.Main", "client", "--no-gui",  "-l", "-u", "admin", "-P", "" ]
+
+# Shell installieren um Exit-Code abzufangen
+COPY --from=busybox:latest /bin/sh /bin/sh
+COPY --from=busybox:latest /bin/echo /bin/echo
+COPY --from=busybox:latest /usr/bin/[ /usr/bin/[
+
+RUN java org.exist.start.Main client --no-gui -l -u admin -P ""; \
+    EXIT=$?; \
+    [ $EXIT -eq 0 ] || [ $EXIT -eq 130 ] || [ $EXIT -eq 143 ] || exit $EXIT
 
 EXPOSE ${HTTP_PORT} ${HTTPS_PORT}
