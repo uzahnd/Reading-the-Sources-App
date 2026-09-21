@@ -7,8 +7,7 @@ module namespace api = "http://teipublisher.com/api/custom";
 declare namespace custom = "http://teipublisher.com/api/custom";
 declare namespace tei = "http://www.tei-c.org/ns/1.0";
 
-(: import module namespace config = "http://www.tei-c.org/tei-simple/config" at "config.xqm"; :)
-import module namespace config = "http://www.tei-c.org/tei-simple/config";
+import module namespace config = "http://www.tei-c.org/tei-simple/config" at "config.xqm";
 import module namespace util = "http://exist-db.org/xquery/util";
 
 (:~
