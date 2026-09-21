@@ -85,6 +85,12 @@ ENV JDK_JAVA_OPTIONS="\
     -Dteipublisher.proxy-caching=${PROXY_CACHING}"
 
 # pre-populate the database by launching it once and change default pw
-RUN [ "java", "org.exist.start.Main", "client", "--no-gui",  "-l", "-u", "admin", "-P", "" ]
+# RUN [ "java", "org.exist.start.Main", "client", "--no-gui",  "-l", "-u", "admin", "-P", "" ]
+# exit code 143 (SIGTERM) and 130 (SIGINT) are expected on shutdown
+
+RUN java org.exist.start.Main client --no-gui -l -u admin -P ""; \
+    EXIT=$?; \
+    echo "eXist-db exited with code: $EXIT"; \
+    [ $EXIT -eq 0 ] || [ $EXIT -eq 130 ] || [ $EXIT -eq 143 ] || exit $EXIT
 
 EXPOSE ${HTTP_PORT} ${HTTPS_PORT}
