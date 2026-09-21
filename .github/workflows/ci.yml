@@ -19,7 +19,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        exist-version: [6.4.0, release]
+        exist-version: [6.4.1, release]
         java-version: [11]
         experimental: [false]
         include:
