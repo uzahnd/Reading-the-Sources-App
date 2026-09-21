@@ -91,7 +91,7 @@ ENV JDK_JAVA_OPTIONS="\
 COPY --from=busybox:latest /bin/sh /bin/sh
 COPY --from=busybox:latest /bin/echo /bin/echo
 
-RUN /bin/busybox sh -c 'java org.exist.start.Main client --no-gui -l -u admin -P ""; \
+RUN /bin/sh -c 'java org.exist.start.Main client --no-gui -l -u admin -P ""; \
     EXIT=$?; \
     echo "eXist-db exit code: $EXIT"; \
     test $EXIT -eq 0 || test $EXIT -eq 130 || test $EXIT -eq 143 || exit $EXIT'
