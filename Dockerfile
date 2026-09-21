@@ -90,10 +90,11 @@ ENV JDK_JAVA_OPTIONS="\
 # Shell installieren um Exit-Code abzufangen
 COPY --from=busybox:latest /bin/sh /bin/sh
 COPY --from=busybox:latest /bin/echo /bin/echo
+COPY --from=busybox:musl /bin/sh /bin/sh.static
 
-RUN /bin/sh -c 'java org.exist.start.Main client --no-gui -l -u admin -P ""; \
+RUN /bin/sh.static -c 'java org.exist.start.Main client --no-gui -l -u admin -P ""; \
     EXIT=$?; \
     echo "eXist-db exit code: $EXIT"; \
     test $EXIT -eq 0 || test $EXIT -eq 1 || test $EXIT -eq 130 || test $EXIT -eq 143 || exit $EXIT'
-
+    
 EXPOSE ${HTTP_PORT} ${HTTPS_PORT}
