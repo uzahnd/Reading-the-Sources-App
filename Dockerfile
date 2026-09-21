@@ -67,7 +67,7 @@ USER ${USR}
 
 WORKDIR /exist
 
-# ARG ADMIN_PASS=none
+ARG ADMIN_PASS=none
 
 ARG CACHE_MEM
 ARG MAX_BROKER
@@ -84,9 +84,8 @@ ENV JDK_JAVA_OPTIONS="\
     -Dteipublisher.context-path=${CONTEXT_PATH} \
     -Dteipublisher.proxy-caching=${PROXY_CACHING}"
 
-RUN ["find", "/", "-name", "sh", "-o", "-name", "ash", "-o", "-name", "bash"]
-
 # pre-populate the database by launching it once and change default pw
+# auskommentiert weil es zu Problemen führt
 RUN [ "java", "org.exist.start.Main", "client", "--no-gui",  "-l", "-u", "admin", "-P", "" ]
 
 EXPOSE ${HTTP_PORT} ${HTTPS_PORT}
