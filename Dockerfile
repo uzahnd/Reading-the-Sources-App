@@ -86,6 +86,6 @@ ENV JDK_JAVA_OPTIONS="\
 
 # pre-populate the database by launching it once and change default pw
 # auskommentiert weil es zu Problemen führt
-RUN [ "java", "org.exist.start.Main", "client", "--no-gui",  "-l", "-u", "admin", "-P", "" ]
+# RUN [ "java", "org.exist.start.Main", "client", "--no-gui",  "-l", "-u", "admin", "-P", "" ]
 
 EXPOSE ${HTTP_PORT} ${HTTPS_PORT}
