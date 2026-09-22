@@ -1,0 +1,41 @@
+name: Build XAR
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Validate XML files
+        run: |
+          sudo apt-get install -y libxml2-utils
+          xmllint --noout $(find . -type f -name '*.xml')
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "lts/*"
+
+      - name: Setup Java
+        uses: actions/setup-java@v6
+        with:
+          distribution: 'temurin'
+          java-version:  ${{ matrix.java-version }}
+
+      - name: Build with Ant
+        run: ant
+
+      - name: Upload XAR artifact
+        uses: actions/upload-artifact@v6
+        with:
+          name: xar-package
+          path: build/*.xar
+          retention-days: 7
