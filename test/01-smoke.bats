@@ -2,7 +2,7 @@
 
 # Basic start-up and connection tests
 # These tests expect a running container at port 8080 with the name "exist"
-# Port 8080 is hardcoded as assumption
+# Port 8080 is hardcoded as assumption 
 
 @test "container jvm responds from client" {
   run docker exec exist java -version
