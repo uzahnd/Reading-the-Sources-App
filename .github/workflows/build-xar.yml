@@ -16,6 +16,7 @@ jobs:
 
       - name: Validate XML files
         run: |
+          sudo apt-get update
           sudo apt-get install -y libxml2-utils
           xmllint --noout $(find . -type f -name '*.xml')
 
