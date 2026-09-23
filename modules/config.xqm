@@ -316,7 +316,7 @@ declare variable $config:context-path :=
             $prop
 ;
 :)
-declare variable $config:context-path := "/rrp/sources/";
+declare variable $config:context-path := "/rrp/sources";
 
 (:~
  : The root of the collection hierarchy containing data.
