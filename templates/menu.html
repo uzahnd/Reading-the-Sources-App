@@ -1,7 +1,7 @@
 <nav class="menubar">
     <ul>
         <li class="logo">
-            <a href="[[ head(($context?defaults?site-root, $context-path)) ]]"/>
+            <a href="[[ head(($context?defaults?site-root, $context-path)) ]]/"/>
         </li>
         [% for $item in $menu?items?* %]
         [% if $item?url or $item?url = ''%]
